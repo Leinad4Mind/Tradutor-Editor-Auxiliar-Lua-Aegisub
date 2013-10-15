@@ -7,9 +7,8 @@ que irá alterar todo o método de trabalho destes. E claro está, facilitar o m
 
 Existe 2 métodos:
 - O ficheiro comentar_trad_ed.lua irá alterar todas as linhas seleccionadas ou todas linhas de um determinado estilo, e comentar as próprias linhas da seguinte forma:
-*Today is gonna rain
-Ficará
-*Tradução {EN: Today is gonna rain}
+
+        "Today is gonna rain" irá ficar "Tradução {EN: Today is gonna rain}"
 
 - O ficheiro duplicar_remover_duplicados.lua irá duplicar todas as linhas seleccionadas ou todas linhas de um determinado estilo
 
