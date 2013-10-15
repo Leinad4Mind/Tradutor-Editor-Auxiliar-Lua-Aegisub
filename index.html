@@ -1,43 +1,53 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-
   <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Tradutor-editor-auxiliar-lua-aegisub : Visto que maioria não gosta do novo método do 3.0.x, ou não quer se habituar a ele, para dar a volta a essa problema decidi criar 2 auxiliares para tradutores e editores que irá alterar todo o método de trabalho destes. E claro está, facilitar o mesmo. " />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Tradutor-editor-auxiliar-lua-aegisub by Leinad4Mind</title>
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>Tradutor-editor-auxiliar-lua-aegisub</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
   </head>
-
   <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Tradutor-editor-auxiliar-lua-aegisub</h1>
+        <p class="header">Visto que maioria não gosta do novo método do 3.0.x, ou não quer se habituar a ele, para dar a volta a essa problema decidi criar 2 auxiliares para tradutores e editores que irá alterar todo o método de trabalho destes. E claro está, facilitar o mesmo. </p>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/Leinad4Mind/Tradutor-Editor-Auxiliar-Lua-Aegisub">View on GitHub</a>
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/Leinad4Mind/Tradutor-Editor-Auxiliar-Lua-Aegisub/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/Leinad4Mind/Tradutor-Editor-Auxiliar-Lua-Aegisub/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/Leinad4Mind/Tradutor-Editor-Auxiliar-Lua-Aegisub">View On GitHub</a></li>
+        </ul>
 
-          <h1 id="project_title">Tradutor-editor-auxiliar-lua-aegisub</h1>
-          <h2 id="project_tagline">Visto que maioria não gosta do novo método do 3.0.x, ou não quer se habituar a ele, para dar a volta a essa problema decidi criar 2 auxiliares para tradutores e editores que irá alterar todo o método de trabalho destes. E claro está, facilitar o mesmo. </h2>
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/Leinad4Mind">Leinad4Mind</a></p>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/Leinad4Mind/Tradutor-Editor-Auxiliar-Lua-Aegisub/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/Leinad4Mind/Tradutor-Editor-Auxiliar-Lua-Aegisub/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
+      </header>
+      <section>
         <h1>
-<a name="modificar-estilo-personagem-lua-aegisub" class="anchor" href="#modificar-estilo-personagem-lua-aegisub"><span class="octicon octicon-link"></span></a>Modificar-Estilo-Personagem-Lua-Aegisub</h1>
+<a name="tradutor-editor-auxiliar-lua-aegisub" class="anchor" href="#tradutor-editor-auxiliar-lua-aegisub"><span class="octicon octicon-link"></span></a>Tradutor-Editor-Auxiliar-Lua-Aegisub</h1>
 
-<p>Um simples lua que permite de forma automática alterar o estilo de determinado personagem, sem ter que o fazer manualmente.
-Caso contrário teria de fazer uma selecção pelo personagem ou pelo estilo e depois alterar.</p>
+<p>Visto que maioria não gosta do novo método do 3.0.x, ou não quer se habituar a ele,
+para dar a volta a essa problema decidi criar 2 auxiliares para tradutores e editores
+que irá alterar todo o método de trabalho destes. E claro está, facilitar o mesmo. </p>
 
-<h2>
+<p>Existe 2 métodos:</p>
+
+<ul>
+<li>
+<p>O ficheiro comentar_trad_ed.lua irá alterar todas as linhas seleccionadas ou todas linhas de um determinado estilo, e comentar as próprias linhas da seguinte forma:</p>
+
+<pre><code>"Today is gonna rain" irá ficar "Tradução {EN: Today is gonna rain}"
+</code></pre>
+</li>
+<li><p>O ficheiro duplicar_remover_duplicados.lua irá duplicar todas as linhas seleccionadas ou todas linhas de um determinado estilo, e após traduzir-se nas linhas não comentadas, basta correr a macro e escolher a opção remover duplicados, ficando apenas com a tradução.</p></li>
+</ul><h2>
 <a name="por-fazer" class="anchor" href="#por-fazer"><span class="octicon octicon-link"></span></a>Por fazer</h2>
 
 <ul>
@@ -48,36 +58,24 @@ Caso contrário teria de fazer uma selecção pelo personagem ou pelo estilo e d
 <p>Load Automático</p>
 
 <ol>
-<li>Transferir modificar_estilo_personagem.lua</li>
+<li>Transferir XPTO.lua</li>
 <li>Colocar esse ficheiro na pasta <em>autoload</em> situada dentro da pasta <em>automation</em> que por sua vez está presenta na sua pasta de instalação do aegisub</li>
 </ol><p>Load Manual</p>
 
 <ol>
-<li>Transferir modificar_estilo_personagem.lua e guarde-o onde bem desejar</li>
+<li>Transferir XPTO.lua e guarde-o onde bem desejar</li>
 <li>Com o Aegisub aberto, quando desejar usá-lo terá de clicar em Automatização -&gt; Automatização...</li>
-<li>Clicar de seguida em <em>Adicionar</em> e ir ao local onde se encontra o modificar_estilo_personagem.lua</li>
+<li>Clicar de seguida em <em>Adicionar</em> e ir ao local onde se encontra o XPTO.lua</li>
 </ol><h2>
 <a name="como-usar" class="anchor" href="#como-usar"><span class="octicon octicon-link"></span></a>Como usar</h2>
 
-<p>A primeira janela dessa macro, permite-nos de forma simples ver todos os estilos que temos, e escolhemos o estilo que pretendemos.
-Na caixa de texto em baixo, serve apenas para escrever o tal estilo que escolhemos na listagem. Depois de escrever seleciona-se esse texto e copia-se.
-Ora este passo apenas serve caso não saibamos de cor o estilo ou como escrevê-lo. Apenas para isso, caso saibamos de cor, podemos fazer logo "OK".
-Portanto só serve de ajuda.</p>
-
-<p>A 2º Janela é a mais importante, na caixa de texto coloca-se o texto copiado da 1º, ou escreve-se o estilo caso saibamos de cor.
-Seleccionamos também o Personagem que vamos alterar o estilo. Clicamos depois em "Modificar" e todas as linhas daquele personagem irão ficar com o estilo escolhido.</p>
+<p>Não tem nada que saber, é muito intuitivo.</p>
       </section>
-    </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Tradutor-editor-auxiliar-lua-aegisub maintained by <a href="https://github.com/Leinad4Mind">Leinad4Mind</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
       </footer>
     </div>
-
-    
-
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
   </body>
 </html>
