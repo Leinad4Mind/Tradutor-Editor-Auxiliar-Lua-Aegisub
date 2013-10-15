@@ -1,17 +1,17 @@
 ﻿Modificar-Estilo-Personagem-Lua-Aegisub
-===================
+========================================
 
 Um simples lua que permite de forma automática alterar o estilo de determinado personagem, sem ter que o fazer manualmente.
 Caso contrário teria de fazer uma selecção pelo personagem ou pelo estilo e depois alterar.
 
 
 Por fazer
------------------
+---------
 * Creio que já está tudo feito, mas estarei disposto a melhorar se houver dicas para tal.
 
 
 Como instalar
---------------
+-------------
 
 Load Automático
 
