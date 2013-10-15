@@ -10,7 +10,7 @@ Existe 2 métodos:
 
         "Today is gonna rain" irá ficar "Tradução {EN: Today is gonna rain}"
 
-- O ficheiro duplicar_remover_duplicados.lua irá duplicar todas as linhas seleccionadas ou todas linhas de um determinado estilo
+- O ficheiro duplicar_remover_duplicados.lua irá duplicar todas as linhas seleccionadas ou todas linhas de um determinado estilo, e após traduzir-se nas linhas não comentadas, basta correr a macro e escolher a opção remover duplicados, ficando apenas com a tradução.
 
 
 Por fazer
