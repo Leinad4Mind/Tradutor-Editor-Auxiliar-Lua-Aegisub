@@ -110,7 +110,7 @@ function change_tag(subs,index,config)
 					-- Com expressão inicial
 					--{\pos(320,438)}Thanks for the food
 					
-					--linha.text = linha.text:gsub("^({[^}]+})(.+)({[^}]+})$", "%1%3%5 {EN: #%2 #%4# %6}") --Versão Alternativa (Sem os "Tradução")
+					--linha.text = linha.text:gsub("^({[^}]+})(.+)({[^}]+})$", "%1%3%5 {EN: #%2#%4#%6}") --Versão Alternativa (Sem os "Tradução")
 					linha.text = linha.text:gsub("^({[^}]+})(.+)({[^}]+})(.+)({[^}]+})(.*)$", "%1Tradução %3Tradução%5 Tradução {EN: #%2#%4#%6}")
 					--{\i1\blur3}Next time on {\i0}Occult Academy{\i1}:
 
