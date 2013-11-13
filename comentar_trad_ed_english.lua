@@ -86,21 +86,27 @@ function change_tag(subs,index,config)
 			if config.comment == "Turn dialogue into comments" then
 				local z = string.find(dialogue.text,"en: ")
 				if not z then
-					dialogue.text = dialogue.text:gsub("^([^{]+)({[^}]+})(.+)({[^}]+})([a-zA-Z ]+)(.+)", " %2%4 {en: %1%2 { %3 } %4 { %5%6}")
+					dialogue.text = dialogue.text:gsub("^([^{]+)({[^}]+})(.+)({[^}]+})(.*)", " %2%4 {en: %1#%3#%5}")
 					-- Italic tag inside of the text
 					-- "A fifth victim was {\i1}found{\i0} with most of her blood missing..."
-					dialogue.text = dialogue.text:gsub("^([^{]+)({[^}]+})([^{]-)$", " %2 {en: %1 } %2 {%3}")
+
+					dialogue.text = dialogue.text:gsub("^([^{]+)({[^}]+})([^{]-)$", " %2 {en: %1#%3}")
 					-- Tag inside of the text
 					-- Touno,{\blur2} let's go.
-					dialogue.text = dialogue.text:gsub("^([^{]+)({[^}]+})(.+)({[^}]+})([.?!]+)", " %2%4%5 {en: %1%2 { %3 } %4{%5}")
-					-- Italic tag inside of the text
-					-- Yes, {\i1}certainly{\i0}.
+
 					dialogue.text = dialogue.text:gsub("^({[^}]+})(.+)({[^}]+})$", "%1%3 {en: %2}")
 					-- Tags at the beginning and the end
 					-- {\blur1.5\i1}"And now, further news on the serial murders."{\i0}
-					dialogue.text = dialogue.text:gsub("^({[^}]+})([^{]+)$", "%1 {en: %2}")
+					-- {\fad(1500,0)\be1}Book One\N{\fs65}New Hour
+
+					dialogue.text = dialogue.text:gsub("^({[^}]+})([^{]+)$", "%1 {en: #%2}")
 					-- Tags at the beginning
 					-- {\pos(320,438)}Thanks for the food.
+					
+					dialogue.text = dialogue.text:gsub("^({[^}]+})(.+)({[^}]+})(.+)({[^}]+})(.*)$", "%1 %3%5  {en: #%2#%4#%6}")
+					-- 3 tags
+					--{\i1\blur3}Next time on {\i0}Occult Academy{\i1}:
+
 					dialogue.text = dialogue.text:gsub("^([^{]+)$", " {en: %1}")
 					-- No tags
 					-- Okay, senpai, it's a promise then.
