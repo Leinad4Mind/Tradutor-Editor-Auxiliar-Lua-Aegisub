@@ -1,19 +1,21 @@
 ﻿--[[
- Copyright (c) 2012, Leinad4Mind
+ Copyright (c) 2012-2013, Leinad4Mind
  All rights reserved®.
  
- Thanks to FichteFoll and tophf for all the help
+ Thanks to FichteFoll and tophf for all the help on regular expressions
+ Thanks to Youka, some of this code was taken from his AddTags Script
+ And Thanks to Shimapan for his modified 2.1 version, I decide to preserve those modifications
 --]]
 
-script_name = "Add/Remove Special Comments"
-script_description = "Add and remove special comments. For Helping Translators and Editors on 3.0.x"
-script_author = "Leinad4Mind"
-script_version = "2.0"
-script_modified = "08 Outubro 2012"
+script_name = "Add/Remove Translation Comments"
+script_description = "Put English dialogue into comments. For helping Translators and Editors on 3.x."
+script_author = "Youka, Leinad4Mind, Shimapan"
+script_version = "3.0"
+script_modified = "2013-11-13"
 
 include("cleantags.lua")
 
---Cleantags do cleantags-autoload
+-- Clean tags
 function cleantags_subs(subtitles)
 	local linescleaned = 0
 	for i = 1, #subtitles do
@@ -29,7 +31,7 @@ function cleantags_subs(subtitles)
 	end
 end
 
---Recolhe nomes dos estilos
+-- Collect style names
 function collect_styles(subs)
 	local n, styles = 0, {}
 	for i=1, #subs do
@@ -42,14 +44,14 @@ function collect_styles(subs)
 	return styles
 end
 
---Configuração
+-- Configuration
 function create_confi(subs)
 	local styles = collect_styles(subs)
 	local conf = {
 		{
 			class = "label",
 			x = 1, y = 0, width = 5, height = 1,
-			label = "\n...| Developed by Leinad4Mind |...",
+			label = "\n...| Developed by Leinad4Mind |...\nTranslation Comments",
 		},
 		{
 			class = "label",
@@ -59,7 +61,7 @@ function create_confi(subs)
 		{
 			class = "dropdown", name = "comment",
 			x = 2, y = 2, width = 5, height = 1,
-			items = {"Comment Lines", "Remove Comment Lines"}, value = "Comment Lines", hint = "Comment or Remove commented lines?"
+			items = {"Turn dialogue into comments", "Remove translation comments"}, value = "Turn dialogue into comments", hint = "Do you want to turn dialogue into comments or remove the thusly generated comments?"
 		},
 		{
 			class = "label",
@@ -78,29 +80,39 @@ function create_confi(subs)
 	return conf
 end
 
---Adiciona expressões ao campo de texto
+-- Handle tags
 function change_tag(subs,index,config)
-	local linha = subs[index]
-			if config.comment == "Comment Lines" then
-				linha.text = linha.text:gsub("^([^{]+)({[^}]+})(.+)({[^}]+})([a-zA-Z ]+)(.+)", "Translation %2Translation%4 Translation {EN: %1%2 { %3 } %4 { %5%6}") -- Com expressão itálico numa palavra a meio.
-				-- "A fifth victim was {\i1}found{\i0} with most of her blood missing..."
-				linha.text = linha.text:gsub("^([^{]+)({[^}]+})([^{]-)$", "Translation %2Translation {EN: %1 } %2 {%3}") -- Com expressão a meio.
-				--Tohno,{\blur2} let's go.
-				linha.text = linha.text:gsub("^([^{]+)({[^}]+})(.+)({[^}]+})([.?!]+)", "Translation %2Translation%4%5 {EN: %1%2 { %3 } %4{%5}") -- Com expressão itálico numa palavra a meio.
-				--Yeah, {\i1}certainly{\i0}.
-				linha.text = linha.text:gsub("^({[^}]+})(.+)({[^}]+})$", "%1Translation%3 {EN: %2}") -- Com expressão inicial e final
-				-- {\blur1.5\i1}"And now, further news on the serial murders."{\i0}
-				linha.text = linha.text:gsub("^({[^}]+})([^{]+)$", "%1Translation {EN: %2}") -- Com expressão inicial
-				--{\pos(320,438)}Thanks for the food
-				linha.text = linha.text:gsub("^([^{]+)$", "Translation {EN: %1}") -- Sem expressões
-				--Okay, senpai, it's a promise then.
+	local dialogue = subs[index]
+			if config.comment == "Turn dialogue into comments" then
+				local z = string.find(dialogue.text,"en: ")
+				if not z then
+					dialogue.text = dialogue.text:gsub("^([^{]+)({[^}]+})(.+)({[^}]+})([a-zA-Z ]+)(.+)", " %2%4 {en: %1%2 { %3 } %4 { %5%6}")
+					-- Italic tag inside of the text
+					-- "A fifth victim was {\i1}found{\i0} with most of her blood missing..."
+					dialogue.text = dialogue.text:gsub("^([^{]+)({[^}]+})([^{]-)$", " %2 {en: %1 } %2 {%3}")
+					-- Tag inside of the text
+					-- Touno,{\blur2} let's go.
+					dialogue.text = dialogue.text:gsub("^([^{]+)({[^}]+})(.+)({[^}]+})([.?!]+)", " %2%4%5 {en: %1%2 { %3 } %4{%5}")
+					-- Italic tag inside of the text
+					-- Yes, {\i1}certainly{\i0}.
+					dialogue.text = dialogue.text:gsub("^({[^}]+})(.+)({[^}]+})$", "%1%3 {en: %2}")
+					-- Tags at the beginning and the end
+					-- {\blur1.5\i1}"And now, further news on the serial murders."{\i0}
+					dialogue.text = dialogue.text:gsub("^({[^}]+})([^{]+)$", "%1 {en: %2}")
+					-- Tags at the beginning
+					-- {\pos(320,438)}Thanks for the food.
+					dialogue.text = dialogue.text:gsub("^([^{]+)$", " {en: %1}")
+					-- No tags
+					-- Okay, senpai, it's a promise then.
+				end
 			else		
-				linha.text = linha.text:gsub(" ?{EN: .+}", "") --Remove tudo criado
+				dialogue.text = dialogue.text:gsub(" ?{en: .+}", "")
+				-- Remove everything written
 			end
-	subs[index] = linha
+	subs[index] = dialogue
 end
 
---Correr pelas linhas escolhidas
+-- Run through the dialogue
 function add_tags(subs,sel,config)
 	if config.chosen == "Selected Lines" then
 		for x, i in ipairs(sel) do
@@ -115,16 +127,16 @@ function add_tags(subs,sel,config)
 	end
 end
 
---Inicialização + GUI
+-- Initialisation + Gui
 function load_macro_add(subs,sel)
 	local config
-		ok, config = aegisub.dialog.display(create_confi(subs),{"Add","Cancel"})
-	if ok == "Add" then
+		ok, config = aegisub.dialog.display(create_confi(subs),{"Go!","Cancel"})
+	if ok == "Go!" then
 		cleantags_subs(subs)
 		add_tags(subs,sel,config)
 		aegisub.set_undo_point("\""..script_name.."\"")
 	end
 end
 
---Registar macro no aegisub
+-- Register macro with Aegisub
 aegisub.register_macro(script_name,script_description,load_macro_add)
