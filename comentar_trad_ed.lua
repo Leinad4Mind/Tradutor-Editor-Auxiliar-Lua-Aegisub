@@ -12,7 +12,7 @@
 
 script_name = "Add/Remover Comentários"
 script_description = "Colocar todas as linhas como comentários para se traduzir. E possibilidade de apagar todas as linhas dos comentários. Expressões aos Estilos ou Linhas Seleccionadas. Aconselhado para a versão 3.x"
-script_author = "Youka, Leinad4Mind, Shimapan"
+script_author = "Youka, Leinad4Mind"
 script_version = "3.0"
 script_modified = "2013-11-13"
 
