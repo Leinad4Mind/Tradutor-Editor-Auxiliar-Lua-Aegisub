@@ -12,7 +12,7 @@
 
 script_name = "Add/Remover Comentários"
 script_description = "Colocar todas as linhas como comentários para se traduzir. E possibilidade de apagar todas as linhas dos comentários. Expressões aos Estilos ou Linhas Seleccionadas. Aconselhado para a versão 3.x"
-script_author = "Youka, Leinad4Mind"
+script_author = "Youka, Leinad4Mind, Shimapan"
 script_version = "3.0"
 script_modified = "2013-11-13"
 
@@ -90,29 +90,29 @@ function change_tag(subs,index,config)
 				local z = string.find(linha.text,"EN: ")
 				if not z then
 					--linha.text = linha.text:gsub("^([^{]+)({[^}]+})(.+)({[^}]+})([a-zA-Z ]+)(.+)", " %2%4 {EN: %1%2 { %3 } %4 { %5%6}") --Versão Alternativa (Sem os "Tradução")
-					linha.text = linha.text:gsub("^([^{]+)({[^}]+})(.+)({[^}]+})([a-zA-Z ]+)(.+)", "Tradução %2Tradução%4 Tradução {EN: %1%2 { %3 } %4 { %5%6}")
+					linha.text = linha.text:gsub("^([^{]+)({[^}]+})(.+)({[^}]+})(.*)", "Tradução %2Tradução%4 Tradução {EN: %1#%3#%5}")
 					-- Com expressão itálico numa palavra a meio.
 					-- "A fifth victim was {\i1}found{\i0} with most of her blood missing..."
 					
-					--linha.text = linha.text:gsub("^([^{]+)({[^}]+})([^{]-)$", " %2 {EN: %1 } %2 {%3}") --Versão Alternativa (Sem os "Tradução")
-					linha.text = linha.text:gsub("^([^{]+)({[^}]+})([^{]-)$", "Tradução %2Tradução {EN: %1 } %2 {%3}")
+					--linha.text = linha.text:gsub("^([^{]+)({[^}]+})([^{]-)$", " %2 {EN: %1#%3") --Versão Alternativa (Sem os "Tradução")
+					linha.text = linha.text:gsub("^([^{]+)({[^}]+})([^{]-)$", "Tradução %2Tradução {EN: %1#%3}")
 					-- Com expressão a meio.
 					--Tohno,{\blur2} let's go.
-					
-					--linha.text = linha.text:gsub("^([^{]+)({[^}]+})(.+)({[^}]+})([.?!]+)", " %2%4%5 {EN: %1%2 { %3 } %4{%5}") --Versão Alternativa (Sem os "Tradução")
-					linha.text = linha.text:gsub("^([^{]+)({[^}]+})(.+)({[^}]+})([.?!]+)", "Tradução %2Tradução%4%5 {EN: %1%2 { %3 } %4{%5}")
-					-- Com expressão itálico numa palavra a meio.
-					--Yeah, {\i1}certainly{\i0}.
-					
-					--linha.text = linha.text:gsub("^({[^}]+})(.+)({[^}]+})$", "%1%3 {EN: %2}") --Versão Alternativa (Sem os "Tradução")
-					linha.text = linha.text:gsub("^({[^}]+})(.+)({[^}]+})$", "%1Tradução%3 {EN: %2}")
-					-- Com expressão inicial e final
+
+					--linha.text = linha.text:gsub("^({[^}]+})(.+)({[^}]+})$", "%1%3 {EN: #%2#%4}") --Versão Alternativa (Sem os "Tradução")
+					linha.text = linha.text:gsub("^({[^}]+})(.+)({[^}]+})([a-zA-Z .?!]*)$", "%1Tradução%3Tradução {EN: #%2#%4}")
+					-- Com expressão inicial e final ou inicial e meio
 					-- {\blur1.5\i1}"And now, further news on the serial murders."{\i0}
-					
-					--linha.text = linha.text:gsub("^({[^}]+})([^{]+)$", "%1 {EN: %2}") --Versão Alternativa (Sem os "Tradução")
-					linha.text = linha.text:gsub("^({[^}]+})([^{]+)$", "%1Tradução {EN: %2}")
+					-- {\fad(1500,0)\be1}Livro Um\N{\fs65}A Hora do Despertar
+
+					--linha.text = linha.text:gsub("^({[^}]+})([^{]+)$", "%1 {EN: #%2}") --Versão Alternativa (Sem os "Tradução")
+					linha.text = linha.text:gsub("^({[^}]+})([^{]+)$", "%1Tradução {EN: #%2}")
 					-- Com expressão inicial
 					--{\pos(320,438)}Thanks for the food
+					
+					--linha.text = linha.text:gsub("^({[^}]+})(.+)({[^}]+})$", "%1%3%5 {EN: #%2 #%4# %6}") --Versão Alternativa (Sem os "Tradução")
+					linha.text = linha.text:gsub("^({[^}]+})(.+)({[^}]+})(.+)({[^}]+})(.*)$", "%1Tradução %3Tradução%5 Tradução {EN: #%2#%4#%6}")
+					--{\i1\blur3}Next time on {\i0}Occult Academy{\i1}:
 
 					--linha.text = linha.text:gsub("^([^{]+)$", " {EN: %1}") --Versão Alternativa (Sem os "Tradução")
 					linha.text = linha.text:gsub("^([^{]+)$", "Tradução {EN: %1}")
@@ -134,7 +134,7 @@ function add_tags(subs,sel,config)
 		end
 	else
 		for i=1, #subs do
-			if subs[i].style == config.chosen:sub(9) then
+			if subs[i].style == config.chosen:sub(10) then
 				change_tag(subs,i,config)
 			end
 		end
