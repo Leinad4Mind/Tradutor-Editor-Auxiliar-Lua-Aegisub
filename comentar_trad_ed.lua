@@ -1,8 +1,9 @@
-﻿--[[
- Copyright (c) 2012, Leinad4Mind
+--[[
+ Copyright (c) 2012-2013, Leinad4Mind
  All rights reserved®.
  
  Agradecimentos a FichteFoll e tophf pela ajuda nas expressões regulares
+ E um obrigado especial ao Youka pela sua função AddTags que deu muito jeito.
  
  Um grande agradecimento a todos os meus amigos
  que sempre me apoiaram, e a toda a comunidade
@@ -10,10 +11,10 @@
 --]]
 
 script_name = "Add/Remover Comentários"
-script_description = "Colocar todas as linhas como comentários para se traduzir. E possibilidade de apagar todas as linhas dos comentários. Expressões aos Estilos ou Linhas Seleccionadas. Aconselhado para a versão 3.0.x"
-script_author = "Leinad4Mind"
-script_version = "2.0"
-script_modified = "08 Outubro 2012"
+script_description = "Colocar todas as linhas como comentários para se traduzir. E possibilidade de apagar todas as linhas dos comentários. Expressões aos Estilos ou Linhas Seleccionadas. Aconselhado para a versão 3.x"
+script_author = "Youka, Leinad4Mind, Shimapan"
+script_version = "3.0"
+script_modified = "2013-11-13"
 
 include("cleantags.lua")
 
@@ -86,20 +87,41 @@ end
 function change_tag(subs,index,config)
 	local linha = subs[index]
 			if config.comment == "Comentar Linhas" then
-				linha.text = linha.text:gsub("^([^{]+)({[^}]+})(.+)({[^}]+})([a-zA-Z ]+)(.+)", "Tradução %2Tradução%4 Tradução {EN: %1%2 { %3 } %4 { %5%6}") -- Com expressão itálico numa palavra a meio.
-				-- "A fifth victim was {\i1}found{\i0} with most of her blood missing..."
-				linha.text = linha.text:gsub("^([^{]+)({[^}]+})([^{]-)$", "Tradução %2Tradução {EN: %1 } %2 {%3}") -- Com expressão a meio.
-				--Tohno,{\blur2} let's go.
-				linha.text = linha.text:gsub("^([^{]+)({[^}]+})(.+)({[^}]+})([.?!]+)", "Tradução %2Tradução%4%5 {EN: %1%2 { %3 } %4{%5}") -- Com expressão itálico numa palavra a meio.
-				--Yeah, {\i1}certainly{\i0}.
-				linha.text = linha.text:gsub("^({[^}]+})(.+)({[^}]+})$", "%1Tradução%3 {EN: %2}") -- Com expressão inicial e final
-				-- {\blur1.5\i1}"And now, further news on the serial murders."{\i0}
-				linha.text = linha.text:gsub("^({[^}]+})([^{]+)$", "%1Tradução {EN: %2}") -- Com expressão inicial
-				--{\pos(320,438)}Thanks for the food
-				linha.text = linha.text:gsub("^([^{]+)$", "Tradução {EN: %1}") -- Sem expressões
-				--Okay, senpai, it's a promise then.
+				local z = string.find(linha.text,"EN: ")
+				if not z then
+					--linha.text = linha.text:gsub("^([^{]+)({[^}]+})(.+)({[^}]+})([a-zA-Z ]+)(.+)", " %2%4 {EN: %1%2 { %3 } %4 { %5%6}") --Versão Alternativa (Sem os "Tradução")
+					linha.text = linha.text:gsub("^([^{]+)({[^}]+})(.+)({[^}]+})([a-zA-Z ]+)(.+)", "Tradução %2Tradução%4 Tradução {EN: %1%2 { %3 } %4 { %5%6}")
+					-- Com expressão itálico numa palavra a meio.
+					-- "A fifth victim was {\i1}found{\i0} with most of her blood missing..."
+					
+					--linha.text = linha.text:gsub("^([^{]+)({[^}]+})([^{]-)$", " %2 {EN: %1 } %2 {%3}") --Versão Alternativa (Sem os "Tradução")
+					linha.text = linha.text:gsub("^([^{]+)({[^}]+})([^{]-)$", "Tradução %2Tradução {EN: %1 } %2 {%3}")
+					-- Com expressão a meio.
+					--Tohno,{\blur2} let's go.
+					
+					--linha.text = linha.text:gsub("^([^{]+)({[^}]+})(.+)({[^}]+})([.?!]+)", " %2%4%5 {EN: %1%2 { %3 } %4{%5}") --Versão Alternativa (Sem os "Tradução")
+					linha.text = linha.text:gsub("^([^{]+)({[^}]+})(.+)({[^}]+})([.?!]+)", "Tradução %2Tradução%4%5 {EN: %1%2 { %3 } %4{%5}")
+					-- Com expressão itálico numa palavra a meio.
+					--Yeah, {\i1}certainly{\i0}.
+					
+					--linha.text = linha.text:gsub("^({[^}]+})(.+)({[^}]+})$", "%1%3 {EN: %2}") --Versão Alternativa (Sem os "Tradução")
+					linha.text = linha.text:gsub("^({[^}]+})(.+)({[^}]+})$", "%1Tradução%3 {EN: %2}")
+					-- Com expressão inicial e final
+					-- {\blur1.5\i1}"And now, further news on the serial murders."{\i0}
+					
+					--linha.text = linha.text:gsub("^({[^}]+})([^{]+)$", "%1 {EN: %2}") --Versão Alternativa (Sem os "Tradução")
+					linha.text = linha.text:gsub("^({[^}]+})([^{]+)$", "%1Tradução {EN: %2}")
+					-- Com expressão inicial
+					--{\pos(320,438)}Thanks for the food
+
+					--linha.text = linha.text:gsub("^([^{]+)$", " {EN: %1}") --Versão Alternativa (Sem os "Tradução")
+					linha.text = linha.text:gsub("^([^{]+)$", "Tradução {EN: %1}")
+					-- Sem expressões
+					--Okay, senpai, it's a promise then.
+				end
 			else		
-				linha.text = linha.text:gsub(" ?{EN: .+}", "") --Remove tudo criado
+				linha.text = linha.text:gsub(" ?{EN: .+}", "")
+				--Remove tudo criado
 			end
 	subs[index] = linha
 end
