@@ -10,7 +10,7 @@
  de anime portuguesa.
 --]]
 
-script_name = "Add/Remover Comentários"
+script_name = "Adicionar ou Remover Comentários"
 script_description = "Colocar todas as linhas como comentários para se traduzir. E possibilidade de apagar todas as linhas dos comentários. Expressões aos Estilos ou Linhas Seleccionadas. Aconselhado para a versão 3.x"
 script_author = "Youka, Leinad4Mind, Shimapan"
 script_version = "3.0"
