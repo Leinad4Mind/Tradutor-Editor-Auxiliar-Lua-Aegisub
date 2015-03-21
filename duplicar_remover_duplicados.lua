@@ -7,7 +7,7 @@
  de anime portuguesa.
 --]]
 
-script_name = "Duplicar Linhas/Remover Duplicados"
+script_name = "Duplicar Linhas - Remover Duplicados"
 script_description = "Duplica e remove duplicados. Aconselhado para a versão 3.0.x"
 script_author = "Leinad4Mind"
 script_version = "7.0"
