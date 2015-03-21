@@ -102,15 +102,15 @@ function change_tag(subs,index,config)
 					dialogue.text = dialogue.text:gsub("^({[^}]+})([^{]+)$", "%1 {en: #%2}")
 					-- Tags at the beginning
 					-- {\pos(320,438)}Thanks for the food.
-					local x = string.find(linha.text,"EN: ")
+					local x = string.find(dialogue.text,"en: ")
 					if not x then
 						dialogue.text = dialogue.text:gsub("^({[^}]+})(.+)({[^}]+})(.+)({[^}]+})(.*)$", "%1 %3%5  {en: #%2#%4#%6}")
 						-- 3 tags
 						--{\i1\blur3}Next time on {\i0}Occult Academy{\i1}:
 					end
-					local x = string.find(linha.text,"EN: ")
+					local x = string.find(dialogue.text,"en: ")
 					if not x then
-						dialogue.text = dialogue.text:gsub("^({[^}]+})(.+)({[^}]+})(.+)({[^}]+})(.+)({[^}]+})(.*)$", "%1 %3%5 %7%8 {EN: #%2#%4#%6#%8#%10}")
+						dialogue.text = dialogue.text:gsub("^({[^}]+})(.+)({[^}]+})(.+)({[^}]+})(.+)({[^}]+})(.*)$", "%1 %3%5 %7%8 {en: #%2#%4#%6#%8#%10}")
 						--5 tags
 						--{\i1\blur3}Next time on {\i0}Occult Academy{\i1}text {\i0}text{\i1}text
 					end
