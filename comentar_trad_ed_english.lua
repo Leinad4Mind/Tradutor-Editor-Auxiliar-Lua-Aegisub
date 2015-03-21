@@ -7,7 +7,7 @@
  And Thanks to Shimapan for his modified 2.1 version, I decide to preserve those modifications
 --]]
 
-script_name = "Add/Remove Translation Comments"
+script_name = "Add or Remove Translation Comments"
 script_description = "Put English dialogue into comments. For helping Translators and Editors on 3.x."
 script_author = "Youka, Leinad4Mind, Shimapan"
 script_version = "3.0"
