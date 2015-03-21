@@ -3,7 +3,7 @@
  All rights reserved®.
 --]]
 
-script_name = "Double Lines/Remove Double Lines"
+script_name = "Double Lines - Remove Double Lines"
 script_description = "Double lines and remove double lines. For Helping Translators and Editors on 3.0.x"
 script_author = "Leinad4Mind"
 script_version = "6.0"
