@@ -136,7 +136,7 @@ function change_tag(subs,index,config)
 					--Okay, senpai, it's a promise then.
 				end
 			else		
-				linha.text = linha.text:gsub(" ?{EN: .+}", "")
+				linha.text = linha.text:gsub(" ?{EN: [^}]*}", "")
 				--Remove tudo criado
 			end
 	subs[index] = linha
