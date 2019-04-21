@@ -119,7 +119,7 @@ function change_tag(subs,index,config)
 					-- Okay, senpai, it's a promise then.
 				end
 			else		
-				dialogue.text = dialogue.text:gsub(" ?{en: .+}", "")
+				dialogue.text = dialogue.text:gsub(" ?{en: [^}]*}", "")
 				-- Remove everything written
 			end
 	subs[index] = dialogue
